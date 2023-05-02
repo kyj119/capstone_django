@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import os
 
 class Post(models.Model):
@@ -11,10 +12,11 @@ class Post(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # author: 추후 작성 예전
+
+    author = models.ForeignKey(User, on_delete=models.CASCADE) #on_delete 사용자의 탈퇴와 같이 글이 지워짐
 
     def __str__(self):
-        return f'[{self.pk}] {self.title}'
+        return f'[{self.pk}] {self.title} :: {self.author}'
 
     def get_absolute_url(self):
         return f'/blog/{self.pk}/'
