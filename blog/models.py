@@ -13,7 +13,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE) #on_delete 사용자의 탈퇴와 같이 글이 지워짐
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) #CASCADE 사용자의 탈퇴와 같이 글이 지워짐 SET_NULL NULL로 초기화 해줌(NULL=True 추가 필요)
 
     def __str__(self):
         return f'[{self.pk}] {self.title} :: {self.author}'
