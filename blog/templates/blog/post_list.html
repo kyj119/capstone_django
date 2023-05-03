@@ -4,7 +4,7 @@
 <h1>Blog</h1>
 {% if post_list.exists %}
 {% for p in post_list %}
-<div class="card mb-4">
+<div class="card mb-4" id="post-{{ p.id }}">
     {% if p.head_image %}
     <a href="#!"><img class="card-img-top" src="{{ p.head_image.url }}"
                       alt="{{ p.title }}" /></a>
@@ -14,6 +14,11 @@
     {% endif %}
     <div class="card-body">
         <div class="small text-muted">January 1, 2023</div>
+        {% if p.category %}
+        <span class="badge badge-secondary float-right">{{ p.category }}</span>
+        {% else %}
+        <span class="badge badge-secondary float-right">미분류</span>
+        {% endif %}
         <h2 class="card-title">{{ p.title }}</h2>
         {% if p.hook_text %}
         <h5 class="text-muted">{{ p.hook_text }}</h5>
