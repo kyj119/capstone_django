@@ -11,3 +11,9 @@ def about_me(request):
         request,
         'single_pages/about_me.html',
     )
+
+def Login(request):
+    return render(
+        request,
+        'single_pages/Login.html'
+    )
