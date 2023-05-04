@@ -38,7 +38,7 @@ class Post(models.Model):
 
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) #CASCADE 사용자의 탈퇴와 같이 글이 지워짐 SET_NULL NULL로 초기화 해줌(NULL=True 추가 필요)
     category =models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
-    tag = models.ManyToManyField(Tag, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return f'[{self.pk}] {self.title} :: {self.author}'

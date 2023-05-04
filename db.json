@@ -1,0 +1,825 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2023-04-29T10:29:38.016",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Post object (1)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2023-04-29T10:30:26.882",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Post object (2)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2023-04-29T19:38:05.813",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "[3] 세번째 포스트",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2023-05-02T02:54:38.760",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "[1] 첫번째 포스트",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Head image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2023-05-02T03:00:53.855",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "[2] 두번째 포스트",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Head image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2023-05-02T03:01:43.222",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "[3] 세번째 포스트",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Head image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2023-05-02T03:11:47.309",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "[1] 첫번째 포스트",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"File upload\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2023-05-02T04:01:27.473",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "[3] 세번째 포스트",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Head image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2023-05-02T04:02:01.097",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "[3] 세번째 포스트",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Content\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2023-05-02T05:11:53.245",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "[2] 두번째 포스트",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"File upload\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2023-05-02T05:15:07.328",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "[3] 세번째 포스트",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"File upload\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2023-05-02T06:44:30.332",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "[4] 롤롤롤롤",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2023-05-03T00:05:31.981",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "LHY",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2023-05-03T00:05:43.263",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "LHY",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2023-05-03T00:06:32.211",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "LHY",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2023-05-03T00:06:42.072",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "KYJ",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2023-05-03T00:06:52.651",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "[3] 세번째 포스트 :: LHY",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Author\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2023-05-03T00:25:21.875",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "123",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2023-05-03T00:25:29.228",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "[5] 12312 :: 123",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2023-05-03T00:25:36.242",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "123",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2023-05-03T00:26:02.592",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "[5] 12312 :: None",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2023-05-03T01:05:38.729",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Programming",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2023-05-03T16:33:19.589",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "[1] 첫번째 포스트 :: KYJ",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Category\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2023-05-03T16:33:32.168",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "still strange",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2023-05-03T16:33:39.298",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "[2] 두번째 포스트 :: KYJ",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Category\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2023-05-03T16:33:43.312",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "[3] 세번째 포스트 :: LHY",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Category\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2023-05-03T16:33:47.713",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "[4] 롤롤롤롤 :: KYJ",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Category\"]}}]"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 4,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 4,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 4,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 4,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 5,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 5,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 5,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 5,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 6,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 6,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 6,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 6,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add post",
+    "content_type": 7,
+    "codename": "add_post"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change post",
+    "content_type": 7,
+    "codename": "change_post"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete post",
+    "content_type": 7,
+    "codename": "delete_post"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view post",
+    "content_type": 7,
+    "codename": "view_post"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add category",
+    "content_type": 8,
+    "codename": "add_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change category",
+    "content_type": 8,
+    "codename": "change_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete category",
+    "content_type": 8,
+    "codename": "delete_category"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view category",
+    "content_type": 8,
+    "codename": "view_category"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$l5W7cos7VsmgWiz89kzmgF$yEV4UXLoqK2F1VCyfzTuuy7sM6ppqEGDk5r9d5WrJQ8=",
+    "last_login": "2023-04-28T17:07:43",
+    "is_superuser": true,
+    "username": "KYJ",
+    "first_name": "김",
+    "last_name": "용준",
+    "email": "skysea259600@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-04-28T17:06:06",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$mUUOcCpTbfhO2u28EKRCsk$yAxbQI8NW2hV76pMfiSbDEkWfjny9fwkP8jzii9cubY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "LHY",
+    "first_name": "이",
+    "last_name": "해연",
+    "email": "godus0210@naver.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-05-03T00:05:31",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "blog",
+    "model": "post"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "blog",
+    "model": "category"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "xv8x73pcmz9wgf7qbhx8kwq8cwmastad",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSE8hkJduvcbCJ1hpGogKe3K-O_apAvd3nPOfYmYtrXEreclziTOQovT7zYlfOS6A7qnemsSW12XeZK7Ig_a5bVRfl4O9--gpF6-9ai1p-DQKhvIsGdvDRpNStOAQMCOHAxsHZrMIWAYWWWPwAk8ECnx_gDRCjfh:1psRZP:PDD4vStP_EDL74ztfklA0vOctdh9KAgCxA9elYtFl2k",
+    "expire_date": "2023-05-12T17:07:43.142"
+  }
+},
+{
+  "model": "blog.category",
+  "pk": 1,
+  "fields": {
+    "name": "Programming",
+    "slug": "programming"
+  }
+},
+{
+  "model": "blog.category",
+  "pk": 2,
+  "fields": {
+    "name": "still strange",
+    "slug": "still-strange"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 1,
+  "fields": {
+    "title": "첫번째 포스트",
+    "hook_text": "",
+    "content": "첫번째 포스트입니다.\r\n인프런강좌를 듣고있습니다.",
+    "head_image": "blog/images/2023/05/02/고양이.jpg",
+    "file_upload": "blog/files/2023/05/02/test.txt",
+    "created_at": "2023-04-29T19:29:24",
+    "updated_at": "2023-05-03T16:33:19.584",
+    "author": 1,
+    "category": 1
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 2,
+  "fields": {
+    "title": "두번째 포스트",
+    "hook_text": "",
+    "content": "1234",
+    "head_image": "blog/images/2023/05/02/고양이2.jpg",
+    "file_upload": "blog/files/2023/05/02/통합_문서1.xlsx",
+    "created_at": "2023-04-29T19:30:22",
+    "updated_at": "2023-05-03T16:33:39.289",
+    "author": 1,
+    "category": 2
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 3,
+  "fields": {
+    "title": "세번째 포스트",
+    "hook_text": "",
+    "content": "주로 아이작의 번제: 리버스와 리그 오브 레전드, 그 외 여러가지 게임들을 한다. 2016년까지는 아이작의 번제나 오버워치를 주류로 했고 2017년에 들어와서는 배틀그라운드를 자주 했다. 특히 아이작은 서농에게 뗄래야 뗄 수 없는 관계인데, 정말 질리도록 했지만 유튜브 조회수가 다른 영상에 비해 2~3배 가량 나오기 때문에[3] 자의 반 타의 반으로 아이작 방송을 장시간[4] 해온 입장으로서는 아이작이 애증의 대상일 듯. 때문에 아이작 망했으면 좋겠다거나, 청자가 아이작 좀 더 해달라는 말을 하면 그런 끔찍한 소리하지 말라는 말을 종종 하기도 한다(…) 이래서 시청자들은 서농이 아이작 방송을 하면 \"일 한다\"라고 표현한다.\r\n아이작의 플레이 방식은 주로 스피드 플레이. 귀찮은 걸 매우 싫어한다. 서농은 아이작 게임을 즐기는 것이 아니라 빠르게 클리어하는 것이 목적이기 때문에 이 귀찮음이 가끔씩 신박한 플레이를 보여 주기도 하고 시청자가 매우 답답해질 때도 있다. 아이템 파밍을 거의 안 하고, 아이템이 떨어져 있는데 잘 안 줍고, 맵 상에 아이템이 있어도 너무 멀리 있으면 안 먹기도 한다. 멀리있을땐 황금방도 버린다. 다만 D4 혹은 D100을 먹었을 때는 달라지는데, 악마방 템도 나올 수도 있기 때문에 황금방이나 상점도 정말 꼬박꼬박 챙긴다. 큰그림성애자\r\n최근 방송에선 그냥 플레이 할때는 일반작, 디버그 콘솔로 원하는 아이템을 얻어가면서 컨셉 조합을 짜는 컨텐츠인 서농실험실, 미션작을 하고 있다.",
+    "head_image": "",
+    "file_upload": "blog/files/2023/05/02/1231.docx",
+    "created_at": "2023-04-29T19:38:05.805",
+    "updated_at": "2023-05-03T16:33:43.301",
+    "author": 2,
+    "category": 2
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 4,
+  "fields": {
+    "title": "롤롤롤롤",
+    "hook_text": "갱플랭크",
+    "content": "몰락한 해적왕 갱플랭크는 잔인한 성격에다 종잡을 수 없으며 사악함은 타의 추종을 불허한다. 과거 항구도시 빌지워터를 힘으로 장악했으나 지금은 영향력을 잃었다. 하지만 사람들은 그렇기 때문에 오히려 갱플랭크가 더 미쳐 날뛰리라고 생각한다. 갱플랭크는 빌지워터를 다른 사람에게 넘기느니 다시 한 번 피바다로 만들어 버릴 인물이니까. 그리고 이제, 권총, 해적검, 화약통으로 무장한 갱플랭크가 잃었던 패권을 되찾기 위한 준비를 끝냈다.",
+    "head_image": "blog/images/2023/05/02/갱플.jpg",
+    "file_upload": "",
+    "created_at": "2023-05-02T06:44:30.328",
+    "updated_at": "2023-05-03T16:33:47.702",
+    "author": 1,
+    "category": 2
+  }
+}
+]

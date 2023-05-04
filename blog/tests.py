@@ -38,7 +38,11 @@ class TestView(TestCase):
             author=self.user_obama,
             category=self.category_programming
         )
+<<<<<<< HEAD
         self.post_001.tag.add(self.tag_hello)
+=======
+        self.post_001.tags.add(self.tag_hello)
+>>>>>>> a4f70b6 (태그 기능 추가)
 
         self.post_002 = Post.objects.create(
             title='두번째 포스트 입니다.',
@@ -51,8 +55,13 @@ class TestView(TestCase):
             content='Category가 없어요..',
             author=self.user_trump,
         )
+<<<<<<< HEAD
         self.post_003.tag.add(self.tag_python)
         self.post_003.tag.add(self.tag_python_kor)
+=======
+        self.post_003.tags.add(self.tag_python)
+        self.post_003.tags.add(self.tag_python_kor)
+>>>>>>> a4f70b6 (태그 기능 추가)
 
     def navbar_test(self, soup):
         navbar = soup.nav
@@ -96,14 +105,23 @@ class TestView(TestCase):
         post_001_card = main_area.find('div', id='post-1')
         self.assertIn(self.post_001.title, post_001_card.text)
         self.assertIn(self.post_001.category.name, post_001_card.text)
+        self.assertIn(self.tag_hello.name, post_001_card.text)
+        self.assertNotIn(self.tag_python.name, post_001_card.text)
+        self.assertNotIn(self.tag_python_kor.name, post_001_card.text)
 
         post_002_card = main_area.find('div', id='post-2')
         self.assertIn(self.post_002.title, post_002_card.text)
         self.assertIn(self.post_002.category.name, post_002_card.text)
+        self.assertNotIn(self.tag_hello.name, post_002_card.text)
+        self.assertNotIn(self.tag_python.name, post_002_card.text)
+        self.assertNotIn(self.tag_python_kor.name, post_002_card.text)
 
         post_003_card = main_area.find('div', id='post-3')
         self.assertIn(self.post_003.title, post_003_card.text)
         self.assertIn('미분류', post_003_card.text)
+        self.assertNotIn(self.tag_hello.name, post_003_card.text)
+        self.assertIn(self.tag_python.name, post_003_card.text)
+        self.assertIn(self.tag_python_kor.name, post_003_card.text)
 
         self.assertIn(self.post_001.author.username.upper(), main_area.text)
         self.assertIn(self.post_002.author.username.upper(), main_area.text)

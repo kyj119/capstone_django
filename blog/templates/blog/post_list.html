@@ -1,7 +1,10 @@
 {% extends 'blog/base.html' %}
+<<<<<<< HEAD
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
+=======
+>>>>>>> a4f70b6 (태그 기능 추가)
 {% block main_area %}
 <h1>
     Blog
@@ -31,6 +34,16 @@
         <h5 class="text-muted">{{ p.hook_text }}</h5>
         {% endif %}
         <p class="card-text">{{ p.content | truncatewords:45}}</p>
+
+        {% if p.tags.exists %}
+            <i class="fas fa-tags"></i>
+            {% for tag in p.tags.iterator %}
+                <a href="{{ tag.get_absolute_url }}"><span class="badge badge-light">{{ tag }}</span></a>
+            {% endfor %}
+            <br>
+            <br>
+        {% endif %}
+
         <a class="btn btn-primary" href="{{ p.get_absolute_url }}">Read more →</a>
     </div>
     <div class="card-footer text-muted">
