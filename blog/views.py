@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Post, Category, Tag
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.shortcuts import render
 
 def post(request):
@@ -15,6 +15,10 @@ class PostList(ListView):
         context['categories'] = Category.objects.all()
         context['no_category_post_count'] = Post.objects.filter(category=None).count()
         return context
+
+class PostCreate(CreateView):
+    model = Post
+    fields = ['title', 'hook_text','content','head_image','file_upload','category']
 
 class PostDetail(DetailView):
     model = Post
