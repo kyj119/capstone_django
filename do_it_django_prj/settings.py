@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'blog',
     'single_pages',
     'bootstrap4',
-    'crispy_forms',
-    'crispy_bootstrap4',
+
+    'crispy_forms', #form 모양
+    'crispy_bootstrap4', #form 모양
+    'markdownx',
 ]
 
 MIDDLEWARE = [
