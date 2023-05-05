@@ -228,6 +228,12 @@ class TestView(TestCase):
         self.assertEqual(last_post.author.username, 'obama')
         self.assertEqual(last_post.content, 'Post Form 페이지를 만듭시다.')
 
+        self.assertEqual(last_post.tags.count(), 3)
+        self.assertTrue(Tag.objects.get(name='new tag'))
+        self.assertTrue(Tag.objects.get(name='한글 태그'))
+        self.assertTrue(Tag.objects.get(name='python'))
+        self.assertEqual(Tag.objcets.count(), 5)
+
     def test_update_post(self):
         update_post_url = f'/blog/update_post/{self.post_003.pk}/'
         #로그인 하지 않은 상황에서 접근 하는 경우
@@ -251,6 +257,9 @@ class TestView(TestCase):
         main_area = soup.find('div', id='main_area')
         self.assertIn('Edit Post', main_area.text)
 
+        tag_str_input = main_area.find('input', id='id_tags_str')
+        self.assertTrue(tag_str_input)
+
         response = self.client.post(
             update_post_url,
             {
@@ -265,3 +274,4 @@ class TestView(TestCase):
         self.assertIn('세번째 포스트를 수정했습니다.', main_area.text)
         self.assertIn('Hello World!', main_area.text)
         self.assertIn(self.category_music.name, main_area.text)
+
