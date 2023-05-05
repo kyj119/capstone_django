@@ -211,8 +211,12 @@ class TestView(TestCase):
 
         soup = BeautifulSoup(response.content, 'html.parser')
         self.assertEqual('Create Post - Blog', soup.title.text)
-        main_area = soup.find('div', id='main-area')
-        #self.assertIn('Create a New Post', main_area.text)
+        main_area = soup.find('div', id='main_area')
+        self.assertIn('Create a New Post', main_area.text)
+
+        tag_str_input = main_area.find('input', id='id_tags_str')
+        self.assertTrue(tag_str_input)
+        self.assertEqual(Tag.objects.count(), 3)
 
         self.client.post(
             '/blog/create_post/',
@@ -228,11 +232,10 @@ class TestView(TestCase):
         self.assertEqual(last_post.author.username, 'obama')
         self.assertEqual(last_post.content, 'Post Form 페이지를 만듭시다.')
 
-        self.assertEqual(last_post.tags.count(), 3)
         self.assertTrue(Tag.objects.get(name='new tag'))
         self.assertTrue(Tag.objects.get(name='한글 태그'))
         self.assertTrue(Tag.objects.get(name='python'))
-        self.assertEqual(Tag.objcets.count(), 5)
+        self.assertEqual(Tag.objects.count(), 5)
 
     def test_update_post(self):
         update_post_url = f'/blog/update_post/{self.post_003.pk}/'
@@ -259,6 +262,7 @@ class TestView(TestCase):
 
         tag_str_input = main_area.find('input', id='id_tags_str')
         self.assertTrue(tag_str_input)
+        self.assertIn('파이썬 공부; python', tag_str_input.attrs['value'])
 
         response = self.client.post(
             update_post_url,
@@ -266,6 +270,7 @@ class TestView(TestCase):
                 'title': '세번째 포스트를 수정했습니다.',
                 'content': 'Hello World!',
                 'category': self.category_music.pk,
+                'tags_str': '파이썬 공부; 한글 태그; some tag'
             },
             follow=True
         )
@@ -274,4 +279,9 @@ class TestView(TestCase):
         self.assertIn('세번째 포스트를 수정했습니다.', main_area.text)
         self.assertIn('Hello World!', main_area.text)
         self.assertIn(self.category_music.name, main_area.text)
+
+        self.assertIn('파이썬 공부', main_area.text)
+        self.assertIn('한글 태그', main_area.text)
+        self.assertIn('some tag', main_area.text)
+        self.assertNotIn('python', main_area.text)
 
