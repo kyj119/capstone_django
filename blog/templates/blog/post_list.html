@@ -53,6 +53,9 @@
     <div class="card-footer text-muted">
         Posted on {{ p.created_at }} by
         <a href="#">{{ p.author | upper }}</a>
+        {% if user.is_authenticated and user == p.author %}
+        <a type="button" href="/blog/update_post/{{ p.pk }}" class="btn btn-info btn-sm float-right"><i class="fas fa-pen"></i>&nbsp Edit Post</a>
+        {% endif %}
     </div>
 </div>
 {% endfor %}

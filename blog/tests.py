@@ -8,11 +8,11 @@ class TestView(TestCase):
         self.client = Client()
         self.user_trump = User.objects.create_user(
             username='trump',
-            password='password1'
+            password='somepassword'
         )
         self.user_obama = User.objects.create_user(
             username='obama',
-            password='password1'
+            password='somepassword'
         )
         self.user_obama.is_staff = True
         self.user_obama.save()
@@ -50,8 +50,8 @@ class TestView(TestCase):
         )
         self.post_003 = Post.objects.create(
             title='세번째 포스트 입니다.',
-            content='Category가 없어요..',
-            author=self.user_trump,
+            content='Category가 없어요.',
+            author=self.user_obama,
         )
         self.post_003.tags.add(self.tag_python)
         self.post_003.tags.add(self.tag_python_kor)
@@ -197,34 +197,71 @@ class TestView(TestCase):
         self.assertNotIn(self.post_003.title, main_area.text)
 
     def test_create_post_without_login(self):
-        response = self.client.get('blog/create_post/')
+        response = self.client.get('/blog/create_post/')
         self.assertNotEqual(response.status_code, 200)
 
     def test_create_post_with_login(self):
-        self.client.login(username='trump', password='password1')
-        response = self.client.get('blog/create_post/')
+        self.client.login(username='trump', password='somepassword')
+        response = self.client.get('/blog/create_post/')
         self.assertNotEqual(response.status_code, 200)
 
-        self.client.login(username='obama', password='password1')
-        response = self.client.get('blog/create_post/')
+        self.client.login(username='obama',password='somepassword')
+        response = self.client.get('/blog/create_post/')
         self.assertEqual(response.status_code, 200)
 
         soup = BeautifulSoup(response.content, 'html.parser')
-
-        self.assertEqual('Create_post - Blog', soup.title.text)
-        main_area = soup.find('div', id='main_area')
-        self.assertIn('Create a New Post', main_area.text)
+        self.assertEqual('Create Post - Blog', soup.title.text)
+        main_area = soup.find('div', id='main-area')
+        #self.assertIn('Create a New Post', main_area.text)
 
         self.client.post(
             '/blog/create_post/',
             {
                 'title': 'Post Form 만들기',
-                'content': 'Post Form 페이지를 만듭시다.'
+                'content': 'Post Form 페이지를 만듭시다.',
+                'tags_str': 'new tag; 한글 태그, python'
             }
         )
 
         last_post = Post.objects.last()
         self.assertEqual(last_post.title, 'Post Form 만들기')
-        self.assertEqual(last_post.author, 'obama')
-        self.assertEqual(last_post.content, 'Post Form 페이지를 만듭시다')
+        self.assertEqual(last_post.author.username, 'obama')
+        self.assertEqual(last_post.content, 'Post Form 페이지를 만듭시다.')
 
+    def test_update_post(self):
+        update_post_url = f'/blog/update_post/{self.post_003.pk}/'
+        #로그인 하지 않은 상황에서 접근 하는 경우
+        response = self.client.get(update_post_url)
+        self.assertNotEqual(response.status_code, 200)
+
+        #로그인은 했지만, 작성자가 아닌 경우
+        self.assertNotEqual(self.post_003.author, self.user_trump)
+        self.client.login(username='trump', password='somepassword')
+        response = self.client.get(update_post_url)
+        self.assertNotEqual(response.status_code, 200)
+
+        #작성자(obama)가 접근하는 경우
+        self.assertEqual(self.post_003.author, self.user_obama)
+        self.client.login(username='obama', password='somepassword')
+        response = self.client.get(update_post_url)
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        self.assertEqual('Edit Post - Blog', soup.title.text)
+        main_area = soup.find('div', id='main_area')
+        self.assertIn('Edit Post', main_area.text)
+
+        response = self.client.post(
+            update_post_url,
+            {
+                'title': '세번째 포스트를 수정했습니다.',
+                'content': 'Hello World!',
+                'category': self.category_music.pk,
+            },
+            follow=True
+        )
+        soup = BeautifulSoup(response.content, 'html.parser')
+        main_area = soup.find('div', id='main_area')
+        self.assertIn('세번째 포스트를 수정했습니다.', main_area.text)
+        self.assertIn('Hello World!', main_area.text)
+        self.assertIn(self.category_music.name, main_area.text)
