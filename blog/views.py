@@ -13,7 +13,7 @@ def post(request):
 
 class PostList(ListView):
     model = Post
-    # ordering = '-pk' 순서 역순으로
+    ordering = '-pk' #역순으로
     paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
