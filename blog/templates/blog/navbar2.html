@@ -1,0 +1,58 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">KBS</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">SBS</a>
+                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">MBC</a>
+                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <!--KBS탭-->
+                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                    <ul>
+                        <li>
+                            <a href="/blog/news/KBS">전체</a>
+                        </li>
+                        {% for news in news1.category.all %}
+                        <li>
+                            <a href="/blog/news_category/KBS/{{ news }}">{{ news }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!--SBS탭-->
+                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                    <ul>
+                        <li>
+                            <a href="/blog/news/SBS">전체</a>
+                        </li>
+                        {% for news in news2.category.all %}
+                        <li>
+                            <a href="/blog/news_category/SBS/{{ news }}">{{ news }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!--MBC탭-->
+                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                    <ul>
+                        <li>
+                            <a href="/blog/news/MBC">전체</a>
+                        </li>
+                        {% for news in news3.category.all %}
+                        <li>
+                            <a href="/blog/news_category/KBS/{{ news }}">{{ news }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                    <a href="/blog/">전체</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

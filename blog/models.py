@@ -5,7 +5,6 @@ from markdownx.utils import markdown
 from datetime import timedelta
 import os
 
-
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True) #allow_unicode 한글 가능하게하는 코드
@@ -29,6 +28,20 @@ class Tag(models.Model):
     def get_absolute_url(self):
         return f'/blog/tag/{self.slug}/'
 
+class News(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True) #allow_unicode 한글 가능하게하는 코드
+    category = models.ManyToManyField(Category, null=True, blank=True, related_name='category')
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/blog/news/{self.slug}/'
+
+    class Meta:
+        verbose_name_plural = 'News' #목록 이름 바꾸기
+
 class Post(models.Model):
     title = models.CharField(max_length=50)
     hook_text = models.CharField(max_length=100,blank=True)
@@ -41,7 +54,8 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) #CASCADE 사용자의 탈퇴와 같이 글이 지워짐 SET_NULL NULL로 초기화 해줌(NULL=True 추가 필요)
-    category =models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    news = models.ForeignKey(News, null=True, blank=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):

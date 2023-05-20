@@ -1,17 +1,11 @@
 {% load socialaccount %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="/">Do It Django</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="/blog/">Blog</a>
                 </li>
@@ -19,21 +13,27 @@
                     <a class="nav-link" href="/about_me/">About me</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
+        <a class="navbar-brand font-weight-bolder fs-30" href="/"><h2>SUE-wave</h2></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+            <!--로그인배너-->
+            <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                        aria-expanded="false">
                         {% if user.socialaccount_set.first.get_avatar_url %}
-                            <img class="rounded-circle"
-                                 width="25px"
-                                 src="{{ user.socialaccount_set.first.get_avatar_url }}"
-                                 alt="{{ user.username }}">
+                        <img class="rounded-circle"
+                             width="25px"
+                             src="{{ user.socialaccount_set.first.get_avatar_url }}"
+                             alt="{{ user.username }}">
                         {% else %}
-                            <img class="rounded-circle"
-                                 width="25px"
-                                 src="https://doitdjango.com/avatar/id/143/e3445497d896a175/svg/{{ user.email }}"
-                                 alt="{{ user.username }}">
+                        <img class="rounded-circle"
+                             width="25px"
+                             src="https://doitdjango.com/avatar/id/143/e3445497d896a175/svg/{{ user.email }}"
+                             alt="{{ user.username }}">
                         {% endif %}
                         &nbsp;
                         {{ user.username }}

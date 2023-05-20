@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.utils.text import slugify
 from django.core.exceptions import PermissionDenied
-from .models import Post, Category, Tag, Comment
+from .models import Post, Category, Tag, Comment, News
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -20,12 +20,14 @@ class PostList(ListView):
         context = super(PostList, self).get_context_data()
         context['categories'] = Category.objects.all()
         context['no_category_post_count'] = Post.objects.filter(category=None).count()
+        context['news1'] = News.objects.get(id=1)
+        context['news2'] = News.objects.get(id=2)
+        context['news3'] = News.objects.get(id=3)
         return context
-
 
 class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
-    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
+    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category', 'news']
 
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
@@ -55,7 +57,7 @@ class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
+    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category', 'news']
     template_name ='blog/post_update_form.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -101,9 +103,13 @@ class PostDetail(DetailView):
         context['categories'] = Category.objects.all()
         context['no_category_post_count'] = Post.objects.filter(category=None).count()
         context['comment_form'] = CommentForm
+        context['news1'] = News.objects.get(id=1)
+        context['news2'] = News.objects.get(id=2)
+        context['news3'] = News.objects.get(id=3)
         return context
 
 def category_page(request, slug):
+
     if slug == 'no_category':
         category = '미분류'
         post_list = Post.objects.filter(category=None)
@@ -119,6 +125,61 @@ def category_page(request, slug):
             'categories': Category.objects.all(),
             'no_category_post_count': Post.objects.filter(category=None).count(),
             'category': category,
+            'news1': News.objects.get(id=1),
+            'news2': News.objects.get(id=2),
+            'news3': News.objects.get(id=3),
+        }
+    )
+
+def news_page(request, slug):
+    if slug == 'no_news':
+        news = '미분류'
+        post_list = Post.objects.filter(news=None)
+    else:
+        news = News.objects.get(slug=slug)
+        post_list = Post.objects.filter(news=news)
+
+    return render(
+        request,
+        'blog/post_list.html',
+        {
+            'post_list': post_list,
+            'categories': Category.objects.all(),
+            'no_category_post_count': Post.objects.filter(category=None).count(),
+            'news': news,
+            'news1': News.objects.get(id=1),
+            'news2': News.objects.get(id=2),
+            'news3': News.objects.get(id=3),
+        }
+    )
+
+def news_category_page(request, slug1, slug2):
+    if slug1 == 'no_news':
+        news = '미분류'
+        news_list = Post.objects.filter(news=None)
+    else:
+        news = News.objects.get(slug=slug1)
+        news_list = Post.objects.filter(news=news)
+
+    if slug2 == 'no_category':
+        category = '미분류'
+        post_list = news_list.filter(category=None)
+    else:
+        category = Category.objects.get(slug=slug2)
+        post_list = news_list.filter(category=category)
+
+    return render(
+        request,
+        'blog/post_list.html',
+        {
+            'post_list': post_list,
+            'categories': Category.objects.all(),
+            'no_category_post_count': Post.objects.filter(category=None).count(),
+            'category': category,
+            'news': news,
+            'news1': News.objects.get(id=1),
+            'news2': News.objects.get(id=2),
+            'news3': News.objects.get(id=3),
         }
     )
 
@@ -134,6 +195,9 @@ def tag_page(request, slug):
             'categories': Category.objects.all(),
             'no_category_post_count': Post.objects.filter(category=None).count(),
             'tag': tag,
+            'news1': News.objects.get(id=1),
+            'news2': News.objects.get(id=2),
+            'news3': News.objects.get(id=3),
         }
     )
 
