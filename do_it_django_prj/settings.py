@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
-import pymysql
 from pathlib import Path
 
 
@@ -91,11 +90,14 @@ WSGI_APPLICATION = 'do_it_django_prj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-pymysql.install_as_MySQLdb()
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sue',  # MySQL 데이터베이스 이름
+        'USER': 'root',  # MySQL 사용자 이름
+        'PASSWORD': 'sueproject',  # MySQL 사용자 비밀번호
+        'HOST': 'localhost',  # MySQL 호스트 (일반적으로 'localhost' 또는 '127.0.0.1')
+        'PORT': '3306',  # MySQL 포트 (기본적으로 3306)
     }
 }
 
