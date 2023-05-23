@@ -29,6 +29,9 @@ class PostList(ListView):
         pagelist = paginator.get_elided_page_range(page.number, on_each_side=3, on_ends=0)
         context['pagelist'] = pagelist
 
+        selected_content = self.request.GET.get('content', '')
+        context['selected_content'] = selected_content
+
         return context
 
 class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -72,6 +75,7 @@ def category_page(request, slug):
         field = Category.objects.get(slug=slug)
         post_list = Post.objects.filter(field=field).order_by('-id')
 
+    selected_content = request.GET.get('content', '')
 
     return render(
         request,
@@ -84,6 +88,7 @@ def category_page(request, slug):
             'news1': News.objects.get(name='KBS'),
             'news2': News.objects.get(name='SBS'),
             'news3': News.objects.get(name='MBC'),
+            'selected_content': selected_content,
         }
     )
 
@@ -94,6 +99,8 @@ def news_page(request, slug):
     else:
         company = News.objects.get(slug=slug)
         post_list = Post.objects.filter(company=company).order_by('-id')
+
+    selected_content = request.GET.get('content', '')
 
     return render(
         request,
@@ -106,6 +113,7 @@ def news_page(request, slug):
             'news1': News.objects.get(name='KBS'),
             'news2': News.objects.get(name='SBS'),
             'news3': News.objects.get(name='MBC'),
+            'selected_content': selected_content,
         }
     )
 
@@ -124,6 +132,8 @@ def news_category_page(request, slug1, slug2):
         field = Category.objects.get(slug=slug2)
         post_list = news_list.filter(field=field).order_by('-id')
 
+    selected_content = request.GET.get('content', '')
+
     return render(
         request,
         'blog/post_list.html',
@@ -136,6 +146,7 @@ def news_category_page(request, slug1, slug2):
             'news1': News.objects.get(name='KBS'),
             'news2': News.objects.get(name='SBS'),
             'news3': News.objects.get(name='MBC'),
+            'selected_content': selected_content,
         }
     )
 
@@ -177,22 +188,40 @@ def delete_comment(request, pk):
     else:
         raise PermissionDenied
 
+from django.db.models import Q
+
+from django.db.models import Q
+
 class PostSearch(PostList):
-    paginate_by = None
+    paginate_by = 5
 
     def get_queryset(self):
-        q = self.kwargs['q'] #class에서 인자를 받는법
-        post_list = Post.objects.filter(
-            Q(title__contains=q) | Q(tags__name__contains=q) #q를 포함하는 카테고리를 가져온다.
-        ).distinct() #중복방지
-        return post_list
+        queryset = super().get_queryset()
+        q = self.kwargs['q']
+        if q:
+            queryset = queryset.filter(
+                Q(title__icontains=q) |
+                Q(text_long__icontains=q) |
+                Q(text_middle__icontains=q) |
+                Q(text_short__icontains=q)
+            )
+        return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(PostSearch, self).get_context_data()
+        context = super().get_context_data(**kwargs)
         q = self.kwargs['q']
-        context['search_info'] = f'Search: {q} ({self.get_queryset().count()})'
+        queryset = self.get_queryset()
+        paginator = Paginator(queryset, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['search_info'] = f'Search: {q} ({queryset.count()})'
+        context['page_obj'] = page_obj
+
+        selected_content = self.request.GET.get('content', '')  # 선택한 내용 가져오기
+        context['selected_content'] = selected_content  # 선택한 내용 전달
 
         return context
+
 
 # class Sign_up(DetailView):
 #     model = Post

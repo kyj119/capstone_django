@@ -12,6 +12,12 @@
     <span class="badge badge-secondary">{{ field }}</span>
     {% endif %}
 </h1>
+<select id="content-selector">
+    <option value="" disabled selected>- 선택하세요 -</option>
+    <option value="short">짧은 내용</option>
+    <option value="middle">중간 내용</option>
+    <option value="long">긴 내용</option>
+</select>
 {% if post_list.exists %}
 {% for p in post_list %}
 <div class="card mb-4" id="post-{{ p.id }}">
@@ -30,13 +36,21 @@
         <span class="badge badge-secondary float-right">미분류</span>
         {% endif %}
         <h2 class="card-title">{{ p.title }}</h2>
-        <p class="card-text">{{ p.get_content_markdown | truncatewords:45 | safe}}</p>
-
+        <p class="card-text" id="content-display">
+            {% if selected_content == 'short' %}
+            {{ p.text_short }}
+            {% elif selected_content == 'middle' %}
+            {{ p.text_middle }}
+            {% elif selected_content == 'long' %}
+            {{ p.text_long }}
+            {% else %}
+            {{ p.text_short }}
+            {% endif %}
+        </p>
         <br>
-        <br>
-
         <a class="btn btn-primary" href="{{ p.get_absolute_url }}">Read more →</a>
     </div>
+
     <div class="card-footer text-muted">
         Posted on {{ p.time }} by
         <a href="#">{{ p.writer | upper }}</a>

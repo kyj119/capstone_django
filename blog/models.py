@@ -60,8 +60,11 @@ class Post(models.Model):
     # def get_file_ext(self):
     #     return self.get_file_name().split('.')[-1]
 
-    def get_content_markdown(self):
+    def get_content_short(self):
         return markdown(self.text_short)
+
+    def get_content_middle(self):
+        return markdown(self.text_middle)
 
     def get_avatar_url(self):
         if self.author.socialaccount_set.exists():
