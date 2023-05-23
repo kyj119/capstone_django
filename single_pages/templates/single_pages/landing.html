@@ -25,10 +25,9 @@
                             <h6><a class="text-decoration-none text-dark" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h6>
 
                             <span class="float-right badge badge-pill badge-secondary">
-                                <img class="mr-1 rounded-circle" src="{{ post.get_avatar_url }}" width="20px" alt="{{ post.author }}">
-                                {{ post.author.username }}
+                                {{ post.writer }}
                                 &nbsp;&nbsp;
-                                {{ post.created_at }}
+                                {{ post.time }}
                             </span>
                         </div>
                     </div>

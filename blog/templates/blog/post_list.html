@@ -8,20 +8,15 @@
 <h1>
     Blog
     {% if search_info %}<small class="text-muted">{{ search_info }}</small>{% endif %}
-    {% if category %}
-    <span class="badge badge-secondary">{{ category }}</span>
-    {% endif %}
-    {% if tag %}
-    <span class="badge badge-light">
-            <i class="fas fa-tags"></i> {{ tag }} ({{ tag.post_set.count }})
-        </span>
+    {% if field %}
+    <span class="badge badge-secondary">{{ field }}</span>
     {% endif %}
 </h1>
 {% if post_list.exists %}
 {% for p in post_list %}
 <div class="card mb-4" id="post-{{ p.id }}">
-    {% if p.head_image %}
-    <a href="#!"><img class="card-img-top" src="{{ p.head_image.url }}"
+    {% if p.image %}
+    <a href="{{ p.url }}"><img class="card-img-top" src="{{ p.image }}"
                       alt="{{ p.title }}" /></a>
     {% else %}
     <a href="#!"><img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/700/300"
@@ -29,31 +24,22 @@
     {% endif %}
     <div class="card-body">
         <div class="small text-muted">January 1, 2023</div>
-        {% if p.category %}
-        <span class="badge badge-secondary float-right">{{ p.category }}</span>
+        {% if p.field %}
+        <span class="badge badge-secondary float-right">{{ p.field }}</span>
         {% else %}
         <span class="badge badge-secondary float-right">미분류</span>
         {% endif %}
         <h2 class="card-title">{{ p.title }}</h2>
-        {% if p.hook_text %}
-        <h5 class="text-muted">{{ p.hook_text }}</h5>
-        {% endif %}
         <p class="card-text">{{ p.get_content_markdown | truncatewords:45 | safe}}</p>
 
-        {% if p.tags.exists %}
-        <i class="fas fa-tags"></i>
-        {% for tag in p.tags.iterator %}
-        <a href="{{ tag.get_absolute_url }}"><span class="badge badge-light">{{ tag }}</span></a>
-        {% endfor %}
         <br>
         <br>
-        {% endif %}
 
         <a class="btn btn-primary" href="{{ p.get_absolute_url }}">Read more →</a>
     </div>
     <div class="card-footer text-muted">
-        Posted on {{ p.created_at }} by
-        <a href="#">{{ p.author | upper }}</a>
+        Posted on {{ p.time }} by
+        <a href="#">{{ p.writer | upper }}</a>
         {% if user.is_authenticated and user == p.author %}
         <a type="button" href="/blog/update_post/{{ p.pk }}" class="btn btn-info btn-sm float-right"><i class="fas fa-pen"></i>&nbsp Edit Post</a>
         {% endif %}
@@ -64,27 +50,78 @@
 <h1>아직 게시물이 없습니다.</h1>
 {% endif %}
 
-{% if is_paginated %}
-<!-- Pagination -->
 <ul class="pagination justify-content-center mb-4">
-    {% if page_obj.has_next %}
-    <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.next_page_number }}">&larr; Older</a>
-    </li>
-    {% else %}
-    <li class="page-item disabled">
-        <a class="page-link" href="#">&larr; Older</a>
-    </li>
-    {% endif %}
     {% if page_obj.has_previous %}
     <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Newer &rarr;</a>
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&larr;</a>
+    </li>
+    {% else %}
+        <li class="page-item disabled">
+        <a class="page-link" href="#">&larr;</a>
+    </li>
+        {% endif %}
+
+    {% if page_obj.number >= 3 %}
+    {% for index in pagelist %}
+    {% if index == page_obj.number %}
+    <li class="page-item active">
+        <span class="page-link">{{ index }}</span>
+    </li>
+    {% elif index >= page_obj.number|add:"-2" and index <= page_obj.number|add:"2" %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ index }}">{{ index }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% for index in pagelist %}
+    {% if forloop.counter <= 5 %}
+    {% if index == page_obj.number %}
+    <li class="page-item active">
+        <span class="page-link">{{ index }}</span>
+    </li>
+    {% else %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ index }}">{{ index }}</a>
+    </li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% if page_obj.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">&rarr;</a>
     </li>
     {% else %}
     <li class="page-item disabled">
-        <a class="page-link" href="#">Newer &rarr;</a>
+        <a class="page-link" href="#">&rarr;</a>
     </li>
     {% endif %}
 </ul>
-{% endif %}
+
+<!--{% if is_paginated %}-->
+<!--&lt;!&ndash; Pagination &ndash;&gt;-->
+<!--<ul class="pagination justify-content-center mb-4">-->
+<!--    {% if page_obj.has_next %}-->
+<!--    <li class="page-item">-->
+<!--        <a class="page-link" href="?page={{ page_obj.next_page_number }}">&larr; Older</a>-->
+<!--    </li>-->
+<!--    {% else %}-->
+<!--    <li class="page-item disabled">-->
+<!--        <a class="page-link" href="#">&larr; Older</a>-->
+<!--    </li>-->
+<!--    {% endif %}-->
+<!--    {% if page_obj.has_previous %}-->
+<!--    <li class="page-item">-->
+<!--        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Newer &rarr;</a>-->
+<!--    </li>-->
+<!--    {% else %}-->
+<!--    <li class="page-item disabled">-->
+<!--        <a class="page-link" href="#">Newer &rarr;</a>-->
+<!--    </li>-->
+<!--    {% endif %}-->
+<!--</ul>-->
+<!--{% endif %}-->
+
 {% endblock %}

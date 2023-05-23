@@ -2,62 +2,46 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.utils.text import slugify
 from django.core.exceptions import PermissionDenied
-from .models import Post, Category, Tag, Comment, News
+from .models import Post, Category, Comment, News
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CommentForm
+from django.core.paginator import Paginator
 
 def post(request):
     return render(request, 'index.html', {})
 
 class PostList(ListView):
     model = Post
-    ordering = '-pk' #역순으로
-    paginate_by = 5
+    ordering = '-pk'  # 역순으로 정렬
+    paginate_by = 5  # 페이지당 게시물 수
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(PostList, self).get_context_data()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
-        context['no_category_post_count'] = Post.objects.filter(category=None).count()
-        context['news1'] = News.objects.get(id=1)
-        context['news2'] = News.objects.get(id=2)
-        context['news3'] = News.objects.get(id=3)
+        context['no_category_post_count'] = Post.objects.filter(field=None).count()
+        context['news1'] = News.objects.get(name='KBS')
+        context['news2'] = News.objects.get(name='SBS')
+        context['news3'] = News.objects.get(name='MBC')
+        page = context['page_obj']
+        paginator = page.paginator
+        pagelist = paginator.get_elided_page_range(page.number, on_each_side=3, on_ends=0)
+        context['pagelist'] = pagelist
+
         return context
 
 class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Post
-    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category', 'news']
+    fields = ['title', 'text_short','text_middle', 'text_long', 'image', 'field', 'company'] #, 'file_upload'
 
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
 
-    def form_valid(self, form):
-        current_user = self.request.user
-        if current_user.is_authenticated and (current_user.is_staff or current_user.is_superuser):
-            form.instance.author = current_user
-            response = super(PostCreate, self).form_valid(form)
-
-            tags_str = self.request.POST.get('tags_str')
-            if tags_str:
-                tags_str = tags_str.strip() #strip(앞뒤 공백 제거)
-                tags_str = tags_str.replace(',', ';')
-                tags_list = tags_str.split(';')
-
-                for t in tags_list:
-                    t = t.strip()
-                    tag, is_tag_created = Tag.objects.get_or_create(name=t) #tag=태그 인자, is_tag_created= 태그가 새로 생성된건지 True/False
-                    if is_tag_created:
-                        tag.slug = slugify(t, allow_unicode=True)
-                        tag.save()
-                    self.object.tags.add(tag)
-            return response
-        else:
-            return redirect('/blog/')
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category', 'news']
+    fields = ['title', 'text_short', 'text_middle', 'text_long', 'image', 'field', 'company'] #  'file_upload',
     template_name ='blog/post_update_form.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -66,56 +50,28 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
         else:
             raise PermissionDenied
 
-    def get_context_data(self, **kwargs):
-        context = super(PostUpdate, self).get_context_data()
-        if self.object.tags.exists():
-            tags_str_list = list()
-            for t in self.object.tags.all():
-                tags_str_list.append(t.name)
-            context['tags_str_defaults'] = '; '.join(tags_str_list)
-        return context
-
-    def form_valid(self, form):
-        response = super(PostUpdate, self).form_valid(form)
-        self.object.tags.clear() #연결을 삭제 / deleate는 db에서 삭제
-
-        tags_str = self.request.POST.get('tags_str')
-        if tags_str:
-            tags_str = tags_str.strip()  # strip(앞뒤 공백 제거)
-            tags_str = tags_str.replace(',', ';')
-            tags_list = tags_str.split(';')
-
-            for t in tags_list:
-                t = t.strip()
-                tag, is_tag_created = Tag.objects.get_or_create(
-                    name=t)  # tag=태그 인자, is_tag_created= 태그가 새로 생성된건지 True/False
-                if is_tag_created:
-                    tag.slug = slugify(t, allow_unicode=True)
-                    tag.save()
-                self.object.tags.add(tag)
-        return response
-
 class PostDetail(DetailView):
     model = Post
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostDetail, self).get_context_data()
         context['categories'] = Category.objects.all()
-        context['no_category_post_count'] = Post.objects.filter(category=None).count()
+        context['no_category_post_count'] = Post.objects.filter(field=None).count()
         context['comment_form'] = CommentForm
-        context['news1'] = News.objects.get(id=1)
-        context['news2'] = News.objects.get(id=2)
-        context['news3'] = News.objects.get(id=3)
+        context['news1'] = News.objects.get(name='KBS')
+        context['news2'] = News.objects.get(name='SBS')
+        context['news3'] = News.objects.get(name='MBC')
         return context
 
 def category_page(request, slug):
 
     if slug == 'no_category':
-        category = '미분류'
-        post_list = Post.objects.filter(category=None)
+        field = '미분류'
+        post_list = Post.objects.filter(field=None).order_by('-id')
     else:
-        category = Category.objects.get(slug=slug)
-        post_list = Post.objects.filter(category=category)
+        field = Category.objects.get(slug=slug)
+        post_list = Post.objects.filter(field=field).order_by('-id')
+
 
     return render(
         request,
@@ -123,21 +79,21 @@ def category_page(request, slug):
         {
             'post_list': post_list,
             'categories': Category.objects.all(),
-            'no_category_post_count': Post.objects.filter(category=None).count(),
-            'category': category,
-            'news1': News.objects.get(id=1),
-            'news2': News.objects.get(id=2),
-            'news3': News.objects.get(id=3),
+            'no_category_post_count': Post.objects.filter(field=None).count(),
+            'category': field,
+            'news1': News.objects.get(name='KBS'),
+            'news2': News.objects.get(name='SBS'),
+            'news3': News.objects.get(name='MBC'),
         }
     )
 
 def news_page(request, slug):
     if slug == 'no_news':
-        news = '미분류'
-        post_list = Post.objects.filter(news=None)
+        company = '미분류'
+        post_list = Post.objects.filter(company=None).order_by('-id')
     else:
-        news = News.objects.get(slug=slug)
-        post_list = Post.objects.filter(news=news)
+        company = News.objects.get(slug=slug)
+        post_list = Post.objects.filter(company=company).order_by('-id')
 
     return render(
         request,
@@ -145,28 +101,28 @@ def news_page(request, slug):
         {
             'post_list': post_list,
             'categories': Category.objects.all(),
-            'no_category_post_count': Post.objects.filter(category=None).count(),
-            'news': news,
-            'news1': News.objects.get(id=1),
-            'news2': News.objects.get(id=2),
-            'news3': News.objects.get(id=3),
+            'no_category_post_count': Post.objects.filter(field=None).count(),
+            'news': company,
+            'news1': News.objects.get(name='KBS'),
+            'news2': News.objects.get(name='SBS'),
+            'news3': News.objects.get(name='MBC'),
         }
     )
 
 def news_category_page(request, slug1, slug2):
     if slug1 == 'no_news':
-        news = '미분류'
-        news_list = Post.objects.filter(news=None)
+        company = '미분류'
+        news_list = Post.objects.filter(company=None).order_by('-id')
     else:
-        news = News.objects.get(slug=slug1)
-        news_list = Post.objects.filter(news=news)
+        company = News.objects.get(slug=slug1)
+        news_list = Post.objects.filter(company=company).order_by('-id')
 
     if slug2 == 'no_category':
-        category = '미분류'
-        post_list = news_list.filter(category=None)
+        field = '미분류'
+        post_list = news_list.filter(field=None).order_by('-id')
     else:
-        category = Category.objects.get(slug=slug2)
-        post_list = news_list.filter(category=category)
+        field = Category.objects.get(slug=slug2)
+        post_list = news_list.filter(field=field).order_by('-id')
 
     return render(
         request,
@@ -174,30 +130,12 @@ def news_category_page(request, slug1, slug2):
         {
             'post_list': post_list,
             'categories': Category.objects.all(),
-            'no_category_post_count': Post.objects.filter(category=None).count(),
-            'category': category,
-            'news': news,
-            'news1': News.objects.get(id=1),
-            'news2': News.objects.get(id=2),
-            'news3': News.objects.get(id=3),
-        }
-    )
-
-def tag_page(request, slug):
-    tag = Tag.objects.get(slug=slug)
-    post_list = tag.post_set.all()
-
-    return render(
-        request,
-        'blog/post_list.html',
-        {
-            'post_list': post_list,
-            'categories': Category.objects.all(),
-            'no_category_post_count': Post.objects.filter(category=None).count(),
-            'tag': tag,
-            'news1': News.objects.get(id=1),
-            'news2': News.objects.get(id=2),
-            'news3': News.objects.get(id=3),
+            'no_category_post_count': Post.objects.filter(field=None).count(),
+            'category': field,
+            'news': company,
+            'news1': News.objects.get(name='KBS'),
+            'news2': News.objects.get(name='SBS'),
+            'news3': News.objects.get(name='MBC'),
         }
     )
 
