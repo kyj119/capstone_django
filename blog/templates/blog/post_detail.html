@@ -36,9 +36,9 @@
         <img class="card-img-top" src="https://picsum.photos/seed/{{ post.id }}/700/300" alt="{{ p.title }}" />
         {% endif %}
         <!-- Post content-->
-        <p>{{ post.get_content_short | safe }}</p>
+        <p>{{ post.get_content_long | safe }}</p>
         <br>
-        <br>
+        <h6>출처 &nbsp: <a href="{{ post.url }}">{{ post.url }}</a></h6>
     </article>
     <hr>
 </div>
@@ -64,7 +64,7 @@
             {% for comment in post.comment_set.iterator %}
             <!-- Comment with nested comments-->
             <div class="media mb-4" id="comment-{{ comment.pk }}">
-                <img class="d-flex mr-3 rounded-circle" src="{{ comment.get_avatar_url }}" alt="{{ comment.author }}" width="60px">
+                <img class="d-flex mr-3 rounded-circle" src="{{ comment.get_avatar_url }}" alt="{{ comment.author }}" width="50px">
                 <div class="media-body">
                     {% if user.is_authenticated and comment.author == user %}
                     <div class="float-right">
@@ -91,7 +91,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    {{ comment.content | linebreaks }}
+                                    {{ comment.comment | linebreaks }}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -106,7 +106,7 @@
                     </div>
                     {% endif %}
                     <h5 class="mt-0">{{ comment.author.username }} <small class="text-muted">{{ comment.created_at }}</small></h5>
-                    {{ comment.content | linebreaks }}
+                    {{ comment.comment | linebreaks }}
                     {% if comment.is_updated %}
                     <p class="text-muted float-right">Updated: {{ comment.updated_at }}</p>
                     {% endif %}

@@ -36,7 +36,7 @@
                         </li>
                         {% for news in news1.field.all %}
                         <li>
-                            <a href="/blog/news_category/KBS/{{ news }}" class="text-dark">{{ news }}</a>
+                            <a href="/blog/news_category/KBS/{{ news.slug }}" class="text-dark">{{ news }}</a>
                         </li>
                         {% endfor %}
                     </ul>
@@ -58,7 +58,7 @@
                         </li>
                         {% for news in news2.field.all %}
                         <li>
-                            <a href="/blog/news_category/SBS/{{ news }}" class="text-dark">{{ news }}</a>
+                            <a href="/blog/news_category/SBS/{{ news.slug }}" class="text-dark">{{ news }}</a>
                         </li>
                         {% endfor %}
                     </ul>
@@ -79,7 +79,7 @@
                         </li>
                         {% for news in news3.field.all %}
                         <li>
-                            <a href="/blog/news_category/MBC/{{ news }}" class="text-dark">{{ news }}</a>
+                            <a href="/blog/news_category/MBC/{{ news.slug }}" class="text-dark">{{ news }}</a>
                         </li>
                         {% endfor %}
                     </ul>

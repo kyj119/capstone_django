@@ -40,7 +40,7 @@ class Post(models.Model):
     text_middle = MarkdownxField()  # models.TextField()
     text_long = MarkdownxField()  # models.TextField()
 
-    image = models.CharField(max_length=100, blank=True)
+    image = models.CharField(max_length=150, blank=True)
     # file_upload = models.FileField(upload_to='blog/files/%Y/%m/%d', blank=True, default='', null=True) #파일형식
 
     time = models.DateTimeField(auto_now_add=True)
@@ -65,6 +65,9 @@ class Post(models.Model):
 
     def get_content_middle(self):
         return markdown(self.text_middle)
+
+    def get_content_long(self):
+        return markdown(self.text_long)
 
     def get_avatar_url(self):
         if self.author.socialaccount_set.exists():

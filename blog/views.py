@@ -15,7 +15,7 @@ def post(request):
 class PostList(ListView):
     model = Post
     ordering = '-pk'  # 역순으로 정렬
-    paginate_by = 5  # 페이지당 게시물 수
+    paginate_by = 7  # 페이지당 게시물 수
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -26,8 +26,10 @@ class PostList(ListView):
         context['news3'] = News.objects.get(name='MBC')
         page = context['page_obj']
         paginator = page.paginator
-        pagelist = paginator.get_elided_page_range(page.number, on_each_side=3, on_ends=0)
+        pagelist = paginator.get_elided_page_range(page.number, on_each_side=2, on_ends=0)
+        last_page = page.paginator.num_pages
         context['pagelist'] = pagelist
+        context['last_page'] = last_page
 
         selected_content = self.request.GET.get('content', '')
         context['selected_content'] = selected_content
@@ -193,7 +195,7 @@ from django.db.models import Q
 from django.db.models import Q
 
 class PostSearch(PostList):
-    paginate_by = 5
+    paginate_by = 7
 
     def get_queryset(self):
         queryset = super().get_queryset()
