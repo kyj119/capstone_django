@@ -14,7 +14,7 @@ def post(request):
 
 class PostList(ListView):
     model = Post
-    ordering = '-pk'  # 역순으로 정렬
+    ordering = '-time'  # 역순으로 정렬
     paginate_by = 7  # 페이지당 게시물 수
 
     def get_context_data(self, **kwargs):
@@ -72,10 +72,10 @@ def category_page(request, slug):
 
     if slug == 'no_category':
         field = '미분류'
-        post_list = Post.objects.filter(field=None).order_by('-id')
+        post_list = Post.objects.filter(field=None).order_by('-time')
     else:
         field = Category.objects.get(slug=slug)
-        post_list = Post.objects.filter(field=field).order_by('-id')
+        post_list = Post.objects.filter(field=field).order_by('-time')
 
     selected_content = request.GET.get('content', '')
 
@@ -97,10 +97,10 @@ def category_page(request, slug):
 def news_page(request, slug):
     if slug == 'no_news':
         company = '미분류'
-        post_list = Post.objects.filter(company=None).order_by('-id')
+        post_list = Post.objects.filter(company=None).order_by('-time')
     else:
         company = News.objects.get(slug=slug)
-        post_list = Post.objects.filter(company=company).order_by('-id')
+        post_list = Post.objects.filter(company=company).order_by('-time')
 
     selected_content = request.GET.get('content', '')
 
@@ -122,10 +122,10 @@ def news_page(request, slug):
 def news_category_page(request, slug1, slug2):
     if slug1 == 'no_news':
         company = '미분류'
-        news_list = Post.objects.filter(company=None).order_by('-id')
+        news_list = Post.objects.filter(company=None).order_by('-time')
     else:
         company = News.objects.get(slug=slug1)
-        news_list = Post.objects.filter(company=company).order_by('-id')
+        news_list = Post.objects.filter(company=company).order_by('-time')
 
     if slug2 == 'no_category':
         field = '미분류'

@@ -1,9 +1,9 @@
 body{
- background: url('/static/single_pages/images/sue_main.png') no-repeat center center fixed;
- -webkit-background-size: cover;
+ background: url('/static/single_pages/images/back-ground.png') no-repeat center center fixed;
  -moz-background-size: cover;
  -background-size: cover;
  -o-background-size: cover;
+ -webkit-background-size: cover;
 }
 
 section{
@@ -11,5 +11,5 @@ section{
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.7);
 }
